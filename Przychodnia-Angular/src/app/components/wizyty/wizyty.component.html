@@ -1,0 +1,39 @@
+<h2>Twoje wizyty</h2>
+<div class="wizyty-container">
+  <h2>Lista wizyt</h2>
+
+  <button class="add-button" [routerLink]="['dodaj']">
+    Dodaj wizytę
+  </button>
+
+ 
+  <table *ngIf="wizyty.length > 0">
+    
+    <thead>
+      <tr>
+        <th>Pacjent</th>
+        <th>Lekarz</th>
+        <th>Data</th>
+        <th>Godzina</th>
+        <th>Status</th>
+        <th>Badanie</th>
+        <th>Akcje</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let w of wizyty">
+        <td>{{ w.pacjent }}</td>
+       <td>{{ w.lekarz }}</td>
+        <td>{{ w.data | date: 'yyyy-MM-dd'}}</td>
+        <td>{{ w.godzina }}</td>
+        <td>{{ w.status }}</td>
+        <td>{{ w.badanie || '-' }}</td>
+        <td>
+      <button (click)="anulujWizyte(w.id)">Anuluj</button>
+    </td>
+      </tr>
+     
+
+    </tbody>
+  </table>
+</div>

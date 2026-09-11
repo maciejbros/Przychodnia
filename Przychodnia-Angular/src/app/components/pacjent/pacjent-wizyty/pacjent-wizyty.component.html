@@ -1,0 +1,77 @@
+<h1>Moje wizyty</h1>
+
+<h2>Nadchodzące</h2>
+<ng-container *ngIf="wizytyNadchodzace.length > 0; else brakNadchodzacych">
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Godzina</th>
+        <th>Lekarz</th>
+        <th>Status</th>
+        <th>Opis</th>
+        <th>Akcje</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let w of wizytyNadchodzace; trackBy: trackById">
+        <td>{{ w.data | date:'yyyy-MM-dd' }}</td>
+        <td>{{ w.data | date:'HH:mm' }}</td>
+        <td>{{ doctorName(w) }}</td>
+        <td>{{ statusText(w.status) }}</td>
+        <td>{{ w.badanie || '-' }}</td>
+        <td>
+          <button
+            (click)="anuluj(w)"
+            [disabled]="!isCancelable(w)"
+            [title]="!isCancelable(w) ? cantCancelReason(w) : ''">
+            Anuluj
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-template #brakNadchodzacych>
+  <p>Brak nadchodzących wizyt.</p>
+</ng-template>
+
+<hr />
+
+<h2>Wszystkie</h2>
+<ng-container *ngIf="wizyty.length > 0; else brakWszystkich">
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Godzina</th>
+        <th>Lekarz</th>
+        <th>Status</th>
+        <th>Opis</th>
+        <th>Akcje</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let w of wizyty; trackBy: trackById">
+        <td>{{ w.data | date:'yyyy-MM-dd' }}</td>
+        <td>{{ w.data | date:'HH:mm' }}</td>
+        <td>{{ doctorName(w) }}</td>
+        <td>{{ statusText(w.status) }}</td>
+        <td>{{ w.badanie || '-' }}</td>
+        <td>
+          <button
+            (click)="anuluj(w)"
+            [disabled]="!isCancelable(w)"
+            [title]="!isCancelable(w) ? cantCancelReason(w) : ''">
+            Anuluj
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-template #brakWszystkich>
+  <p>Nie znaleziono wizyt.</p>
+</ng-template>
